@@ -194,7 +194,9 @@ Code reviews for feedback and consistency
 
 
 
-Naming Conventions in Java :
+------------------------------------------------------Naming Conventions in Java--------------------------------------------------------------------------------------
+
+
 Naming conventions are a set of guidelines that define how to name identifiers such as classes, 
 variables, methods, constants and packages in a uniform and meaningful way. These conventions help ensure clarity, 
 reduce confusion, and maintain coding standards across projects and teams.
