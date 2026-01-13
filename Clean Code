@@ -271,6 +271,259 @@ Clean code is more than formatting — it’s about writing Java that’s:
 ✅ Testable
 
 
+---------------------------------------------------------------Refactoring and Identifying Code Smells----------------------------------------------------------------------
+
+1. Bloaters
+
+Code that has grown too large and hard to manage.
+
+🔹 Long Method
+
+What it is: A method that’s too long and does too many things.
+
+Why it’s bad: Hard to understand, test, and reuse.
+
+Typical signs: Many lines, nested loops/conditions, comments explaining steps.
+
+Example symptom: “This function handles validation, calculation, logging, and saving.”
+
+🔹 Large Class
+
+What it is: A class with too many responsibilities.
+
+Why it’s bad: Violates Single Responsibility Principle; changes become risky.
+
+Typical signs: Many fields/methods, unrelated behaviors.
+
+Example symptom: One class handles UI, business logic, and data access.
+
+🔹 Primitive Obsession
+
+What it is: Overuse of primitive types (int, string, boolean) instead of small objects.
+
+Why it’s bad: Logic spreads everywhere and becomes error-prone.
+
+Typical signs: Repeated validation logic, many parameters of basic types.
+
+Example symptom: Using string for phone numbers, emails, money, dates.
+
+🔹 Long Parameter List
+
+What it is: A method with too many parameters.
+
+Why it’s bad: Hard to read, easy to misuse.
+
+Typical signs: 4–5+ parameters, especially related ones.
+
+Example symptom:
+createUser(name, age, street, city, zip, country, phone)
+
+🔹 Data Clumps
+
+What it is: Groups of variables that always appear together.
+
+Why it’s bad: Indicates a missing abstraction.
+
+Typical signs: Same parameters passed to many methods.
+
+Example symptom: (x, y, z) passed everywhere instead of a Point object.
+
+2. Object-Orientation Abusers
+
+Misuse or lack of proper OO design.
+
+🔹 Switch Statements
+
+What it is: Large switch/if-else chains controlling behavior.
+
+Why it’s bad: Adding new behavior requires modifying many switches.
+
+Typical signs: Same switch repeated in different places.
+
+Example symptom: switch(type) deciding logic instead of polymorphism.
+
+🔹 Temporary Field
+
+What it is: Fields used only in certain situations.
+
+Why it’s bad: Makes object state confusing.
+
+Typical signs: Fields set only inside specific methods.
+
+Example symptom: A field used only during a single calculation.
+
+🔹 Refused Bequest
+
+What it is: Subclass inherits things it doesn’t need.
+
+Why it’s bad: Inheritance is misused.
+
+Typical signs: Overridden methods throwing exceptions or doing nothing.
+
+Example symptom: A subclass that ignores half of its parent’s behavior.
+
+🔹 Alternative Classes with Different Interfaces
+
+What it is: Classes that do similar things but have different method names.
+
+Why it’s bad: Prevents polymorphism and reuse.
+
+Typical signs: Same logic, different method signatures.
+
+Example symptom: getPrice() vs calculateCost() doing the same thing.
+
+3. Change Preventers
+
+Code that makes changes expensive and risky.
+
+🔹 Divergent Change
+
+What it is: One class must be modified for many different reasons.
+
+Why it’s bad: Indicates too many responsibilities.
+
+Typical signs: Every new feature touches the same class.
+
+Example symptom: A class modified for UI, business logic, and database changes.
+
+🔹 Shotgun Surgery
+
+What it is: One change requires many small changes in many places.
+
+Why it’s bad: Easy to miss something and introduce bugs.
+
+Typical signs: Updating the same logic in multiple classes.
+
+Example symptom: Adding a field requires edits in 10+ files.
+
+🔹 Parallel Inheritance Hierarchies
+
+What it is: Every time you create a subclass, you must create another subclass elsewhere.
+
+Why it’s bad: Tight coupling between class hierarchies.
+
+Typical signs: Matching class trees growing together.
+
+Example symptom: CarController → ElectricCarController → HybridCarController
+
+4. Dispensables
+
+Code that adds no real value.
+
+🔹 Duplicate Code
+
+What it is: Same code repeated in multiple places.
+
+Why it’s bad: Fixing bugs requires multiple fixes.
+
+Typical signs: Copy-paste logic.
+
+Example symptom: Same validation logic in several classes.
+
+🔹 Dead Code
+
+What it is: Code that is never used.
+
+Why it’s bad: Confusing and misleading.
+
+Typical signs: Unused methods, unreachable branches.
+
+Example symptom: Old commented-out logic or unused variables.
+
+🔹 Lazy Class
+
+What it is: A class that does too little.
+
+Why it’s bad: Unnecessary complexity.
+
+Typical signs: Only one method or trivial logic.
+
+Example symptom: A class that only wraps another class.
+
+🔹 Data Class
+
+What it is: A class with fields but no behavior.
+
+Why it’s bad: Logic ends up scattered elsewhere.
+
+Typical signs: Only getters/setters.
+
+Example symptom: User with no logic, only properties.
+
+🔹 Speculative Generality
+
+What it is: Code written “just in case.”
+
+Why it’s bad: Adds complexity without benefit.
+
+Typical signs: Unused interfaces, abstract classes.
+
+Example symptom: Hooks or parameters never actually used.
+
+🔹 Comments (Excessive)
+
+What it is: Comments explaining bad code.
+
+Why it’s bad: Code should explain itself.
+
+Typical signs: Long comments describing what code does.
+
+Example symptom: “// increment i by 1”
+
+5. Couplers
+
+Problems related to excessive coupling between classes.
+
+🔹 Feature Envy
+
+What it is: A method that uses another class’s data more than its own.
+
+Why it’s bad: Logic is in the wrong place.
+
+Typical signs: Many calls to another object’s getters.
+
+Example symptom: OrderPrinter deeply inspecting Order internals.
+
+🔹 Inappropriate Intimacy
+
+What it is: Classes that know too much about each other.
+
+Why it’s bad: Changes ripple across classes.
+
+Typical signs: Accessing private data, tight coupling.
+
+Example symptom: Two classes constantly modifying each other’s fields.
+
+🔹 Message Chains
+
+What it is: Long chains of method calls.
+
+Why it’s bad: Breaks encapsulation.
+
+Typical signs: a.getB().getC().getD()
+
+Example symptom: Deep navigation through object graphs.
+
+🔹 Middle Man
+
+What it is: A class that only delegates to another class.
+
+Why it’s bad: Adds unnecessary indirection.
+
+Typical signs: Methods that just forward calls.
+
+Example symptom: manager.doX() → service.doX()
+
+🔹 Incomplete Library Class
+
+What it is: A library class missing needed functionality.
+
+Why it’s bad: Leads to awkward workarounds.
+
+Typical signs: Utility methods scattered elsewhere.
+
+Example symptom: Rewriting logic that should belong to the library.
+
 
 --------------------------------------------------------------------EXCEPTIONS IN JAVA----------------------------------------------------------------------------------
 
